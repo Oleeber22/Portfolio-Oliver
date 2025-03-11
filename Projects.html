@@ -1,0 +1,173 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="logo.png">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oliver's Portfolior</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<section class="Home">
+   <!-- Logo -->
+   <div class="logo">
+    <a href="index.html"><img src="image/logo.png" alt=""></a>
+</div>
+
+<!-- Social Media Icons -->
+<div class="social-icons">
+    <a href="https://www.facebook.com/profile.php?id=61555565215808"><img src="image/fb.png" alt="Facebook"></a>
+    <a href="https://www.instagram.com/holyber22/?next=%2F"><img src="image/ig.png" alt="Instagram"></a>
+    <a href="#"><img src="image/x.png" alt="Twitter"></a>
+</div>
+
+<!-- Navbar -->
+<div class="navbar">
+    <ul>
+        <li><a href="#" class="circle-button"><img src="image/pc.gif" alt="first"></a></li>
+        <li><a href="Projects.html" class="nav-item">Portfolio</a></li>
+        <li><a href="about.html" class="nav-item">About</a></li>
+        <li><a href="image/Dela Cruz - CV (1).pdf" download="example.pdf" class="download-link" class="nav-item">Contact</a></li>
+        <li><a href="#" class="circle-button"><img src="image/tech.gif" alt="second"></a></li>
+    </ul>
+</div>
+<!--portfolio-->
+<div class="gallery-container">
+    <div id="gallery" class="gallery"></div>
+    <div class="pagination">
+        <button id="prevBtn">Previous</button>
+        <button id="nextBtn">Next</button>
+    </div>
+</div>
+
+
+     <!--footer-->
+     <!-- Footer Section -->
+     <footer class="footer">
+        <div class="footer-container">
+            <!-- About Section -->
+            <div class="footer-about">
+                <img src="image/logo.png" alt="">
+                <div class="social-icons1">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="Projects.html">Portfolio</a></li>
+                    <li><a href="image/Dela Cruz - CV (1).pdf">Contact</a></li>
+                </ul>
+            </div>
+              <!-- Quick Links -->
+              <div class="footer-links">
+                <h3>Follow me on my Socials</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com/profile.php?id=61555565215808">Facebook</a></li>
+                    <li><a href="https://www.instagram.com/holyber22/?next=%2F">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="https://www.linkedin.com/in/oliver-dela-cruz-0b1847268/">LinkedIn</a></li>
+                </ul>
+            </div>
+            <!-- Newsletter -->
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get the latest updates.</p>
+                <form id="newsletter-form">
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                    <p id="message"></p>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025  All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        const portfolioItems = [
+            { img: "image/ss.png", desc: "School Evaluation", link:"pr1.html" },
+            { img: "image/ss2.png", desc: "Farm-E" },
+            { img: "image/ss3.png", desc: "OtakuVerse" },
+            { img: "image/ss4.png", desc: "Password Generator" },
+            { img: "image/ss5.png", desc: "AniMerch" },
+            { img: "image/ss6.png", desc: "Online Calculator" },
+           
+        ];
+
+        const itemsPerPage = 6;
+        let currentPage = 1;
+
+        function renderGallery() {
+            const gallery = document.getElementById("gallery");
+            gallery.innerHTML = "";
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const currentItems = portfolioItems.slice(startIndex, endIndex);
+
+            currentItems.forEach(item => {
+                const div = document.createElement("div");
+                div.classList.add("item");
+                div.innerHTML = `<img src="${item.img}" alt="Project Image">
+                                <div class="description">${item.desc}</div>`;
+                gallery.appendChild(div);
+            });
+
+            document.getElementById("prevBtn").disabled = currentPage === 1;
+            document.getElementById("nextBtn").disabled = endIndex >= portfolioItems.length;
+        }
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderGallery();
+            }
+        });
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+            if (currentPage * itemsPerPage < portfolioItems.length) {
+                currentPage++;
+                renderGallery();
+            }
+        });
+
+        // Initial render
+        renderGallery();
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cards = document.querySelectorAll(".card");
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                    } else {
+                        entry.target.classList.remove("show");
+                    }
+                });
+            }, { threshold: 0.5 });
+            cards.forEach(card => observer.observe(card));
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("[data-setbg]").forEach(element => {
+                let bgImage = element.getAttribute("data-setbg");
+                element.style.backgroundImage = `url(${bgImage})`;
+            });
+        });
+    </script>
+    
+</body>
+</html>
