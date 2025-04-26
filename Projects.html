@@ -96,55 +96,67 @@
     </footer>
     <script>
         const portfolioItems = [
-            { img: "image/ss.png", desc: "School Evaluation", link:"pr1.html" },
-            { img: "image/ss2.png", desc: "Farm-E" },
-            { img: "image/ss3.png", desc: "OtakuVerse" },
-            { img: "image/ss4.png", desc: "Password Generator" },
-            { img: "image/ss5.png", desc: "AniMerch" },
-            { img: "image/ss6.png", desc: "Online Calculator" },
-           
+            { img: "image/ss.png", desc: "School Evaluation", link: "pr1.html" },
+            { img: "image/ss2.png", desc: "Farm-E", link: "2.html" },
+            { img: "image/ss3.png", desc: "OtakuVerse", link: "3.html" },
+            { img: "image/ss4.png", desc: "Password Generator", link: "4.html" },
+            { img: "image/ss5.png", desc: "AniMerch", link: "5.html" },
+            { img: "image/ui1.png", desc: "UI/UX Project", link: "6.html" },
+            { img: "image/ui2.png", desc: "UI/UX Project", link: "ui1.html" },
+            { img: "image/ui3.png", desc: "UI/UX Project", link: "ui2.html" },
+            { img: "image/ui4.png", desc: "UI/UX Project", link: "ui3.html" },
         ];
-
+    
         const itemsPerPage = 6;
         let currentPage = 1;
-
+    
         function renderGallery() {
             const gallery = document.getElementById("gallery");
             gallery.innerHTML = "";
-
+    
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
             const currentItems = portfolioItems.slice(startIndex, endIndex);
-
+    
             currentItems.forEach(item => {
                 const div = document.createElement("div");
                 div.classList.add("item");
-                div.innerHTML = `<img src="${item.img}" alt="Project Image">
-                                <div class="description">${item.desc}</div>`;
+    
+                let content = `
+                    <img src="${item.img}" alt="Project Image">
+                    <div class="description">${item.desc}</div>
+                `;
+    
+                if (item.link) {
+                    content = `<a href="${item.link}" target="_blank">${content}</a>`;
+                }
+    
+                div.innerHTML = content;
                 gallery.appendChild(div);
             });
-
+    
             document.getElementById("prevBtn").disabled = currentPage === 1;
             document.getElementById("nextBtn").disabled = endIndex >= portfolioItems.length;
         }
-
+    
         document.getElementById("prevBtn").addEventListener("click", () => {
             if (currentPage > 1) {
                 currentPage--;
                 renderGallery();
             }
         });
-
+    
         document.getElementById("nextBtn").addEventListener("click", () => {
             if (currentPage * itemsPerPage < portfolioItems.length) {
                 currentPage++;
                 renderGallery();
             }
         });
-
+    
         // Initial render
         renderGallery();
     </script>
+    
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const cards = document.querySelectorAll(".card");
